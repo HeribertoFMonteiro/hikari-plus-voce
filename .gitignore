@@ -1,0 +1,57 @@
+# Arquivos de ambiente e configuração
+.env
+.env.local
+.env.production
+.env.staging
+
+# Logs
+logs/
+*.log
+php_errors.log
+
+# Cache
+cache/
+*.cache
+
+# Backups
+backups/
+*.sql
+*.tar.gz
+
+# Uploads (se houver arquivos temporários)
+public/uploads/temp/
+public/uploads/cache/
+
+# IDE e editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Composer
+vendor/
+composer.lock
+
+# Node.js (se usado)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testes
+tests/
+phpunit.xml
+
+# Documentação temporária
+*.tmp
+*.bak
+
+# Arquivos de desenvolvimento
+debug.log
+error_log

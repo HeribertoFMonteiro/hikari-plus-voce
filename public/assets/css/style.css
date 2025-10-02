@@ -1,0 +1,69 @@
+/* Importar fonte Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* Variáveis de cores */
+:root {
+  --primary-blue: #1e3a5f; /* Azul petróleo */
+  --secondary-green: #4ade80; /* Verde suave */
+  --accent-orange: #f59e0b; /* Laranja/amarelo para botões */
+  --text-dark: #1f2937;
+  --text-light: #f9fafb;
+  --bg-gray: #f3f4f6;
+}
+
+/* CSS extra para customizações */
+body {
+  font-family: 'Montserrat', sans-serif;
+  scroll-behavior: smooth;
+  color: var(--text-dark);
+  background-color: var(--bg-gray);
+}
+
+/* Header fixo */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+/* Botões CTA */
+.btn-cta {
+  background-color: var(--accent-orange);
+  color: var(--text-dark);
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s;
+}
+
+.btn-cta:hover {
+  background-color: #d97706;
+}
+
+/* Cards de planos */
+.plan-card {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-green));
+  color: var(--text-light);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+}

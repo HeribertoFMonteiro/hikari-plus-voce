@@ -1,0 +1,374 @@
+<?php
+// Ativar exibição de erros para debug
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Definir idioma
+$idioma = isset($_GET['lang']) && $_GET['lang'] === 'es' ? 'es' : 'pt';
+
+// Conectar ao banco de dados
+require_once '../src/Models/Database.php';
+
+// Buscar traduções
+try {
+    $stmt = $pdo->prepare("SELECT chave, $idioma AS texto FROM translations");
+    $stmt->execute();
+    $translationsArr = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+} catch (PDOException $e) {
+    die("Erro ao buscar traduções: " . $e->getMessage());
+}
+
+// Incluir header (navbar já está dentro do header)
+include '../src/Views/header.php';
+?>
+
+<!-- Seção Hero -->
+<section class="hero py-32 text-center relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-indigo-900 via-blue-800 to-green-600 opacity-90"></div>
+  <div class="absolute inset-0 bg-black opacity-30"></div>
+  <!-- Background image placeholder -->
+  <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1200');"></div>
+  <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-5xl md:text-6xl font-bold mb-6">
+      <?php echo $translationsArr['titulo_hero'] ?? 'Internet rápida no Japão para brasileiros e latinos'; ?>
+    </h1>
+    <p class="text-xl md:text-2xl mb-8 opacity-90">
+      <?php echo $translationsArr['subtitulo_hero'] ?? 'Planos de fibra ótica com suporte em Português e Espanhol'; ?>
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="planos.php?lang=<?php echo $idioma; ?>" class="btn-cta text-lg px-8 py-4">
+        <?php echo $translationsArr['ver_planos'] ?? 'Ver Planos'; ?>
+      </a>
+      <a href="cobertura.php?lang=<?php echo $idioma; ?>" class="bg-white text-indigo-600 font-semibold py-4 px-8 rounded-lg hover:bg-gray-100 transition text-lg">
+        <?php echo $translationsArr['verificar_cobertura'] ?? 'Verificar Cobertura'; ?>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Seção Planos -->
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-center mb-12">
+      <?php echo $translationsArr['planos_titulo'] ?? 'Nossos Planos de Internet'; ?>
+    </h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Plano Básico -->
+      <div class="plan-card p-8 text-center">
+        <div class="mb-4">
+          <i data-lucide="wifi" class="w-12 h-12 text-indigo-600 mx-auto"></i>
+        </div>
+        <h3 class="text-2xl font-bold mb-4">
+          <?php echo $translationsArr['plano_basico'] ?? 'Plano Básico'; ?>
+        </h3>
+        <p class="text-4xl font-bold text-indigo-600 mb-2">¥3,000<span class="text-lg font-normal">/mês</span></p>
+        <p class="text-gray-600 mb-6">
+          <?php echo $translationsArr['plano_basico_desc'] ?? '100 Mbps - Ideal para navegação e streaming básico'; ?>
+        </p>
+        <ul class="text-left mb-6 space-y-2">
+          <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mr-2"></i>Roteador Wi-Fi grátis</li>
+          <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mr-2"></i>Instalação sem custo</li>
+          <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mr-2"></i>Suporte 24/7</li>
+        </ul>
+        <a href="contato.php?lang=<?php echo $idioma; ?>" class="btn-cta w-full block text-center">
+          <?php echo $translationsArr['solicitar_agora'] ?? 'Solicitar Agora'; ?>
+        </a>
+      </div>
+
+      <!-- Plano Intermediário -->
+      <div class="plan-card p-8 text-center border-2 border-indigo-600 relative">
+        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+          <?php echo $translationsArr['mais_popular'] ?? 'Mais Popular'; ?>
+        </div>
+        <div class="mb-4">
+          <i data-lucide="zap" class="w-12 h-12 text-indigo-600 mx-auto"></i>
+        </div>
+        <h3 class="text-2xl font-bold mb-4">
+          <?php echo $translationsArr['plano_intermediario'] ?? 'Plano Premium'; ?>
+        </h3>
+        <p class="text-4xl font-bold text-indigo-600 mb-2">¥5,000<span class="text-lg font-normal">/mês</span></p>
+        <p class="text-gray-600 mb-6">
+          <?php echo $translationsArr['plano_intermediario_desc'] ?? '300 Mbps - Perfeito para famílias e trabalho remoto'; ?>
+        </p>
+        <ul class="text-left mb-6 space-y-2">
+          <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mr-2"></i>Roteador Wi-Fi avançado</li>
+          <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mr-2"></i>Instalação prioritária</li>
+          <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mr-2"></i>Suporte premium</li>
+          <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mr-2"></i>TV por assinatura incluída</li>
+        </ul>
+        <a href="contato.php?lang=<?php echo $idioma; ?>" class="btn-cta w-full block text-center">
+          <?php echo $translationsArr['solicitar_agora'] ?? 'Solicitar Agora'; ?>
+        </a>
+      </div>
+
+      <!-- Plano Avançado -->
+      <div class="plan-card p-8 text-center">
+        <div class="mb-4">
+          <i data-lucide="rocket" class="w-12 h-12 text-indigo-600 mx-auto"></i>
+        </div>
+        <h3 class="text-2xl font-bold mb-4">
+          <?php echo $translationsArr['plano_avancado'] ?? 'Plano Ultra'; ?>
+        </h3>
+        <p class="text-4xl font-bold text-indigo-600 mb-2">¥8,000<span class="text-lg font-normal">/mês</span></p>
+        <p class="text-gray-600 mb-6">
+          <?php echo $translationsArr['plano_avancado_desc'] ?? '1 Gbps - Máxima velocidade para gamers e profissionais'; ?>
+        </p>
+        <ul class="text-left mb-6 space-y-2">
+          <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mr-2"></i>Roteador gaming</li>
+          <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mr-2"></i>Instalação expressa</li>
+          <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mr-2"></i>Suporte VIP</li>
+          <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mr-2"></i>TV 4K + streaming ilimitado</li>
+        </ul>
+        <a href="contato.php?lang=<?php echo $idioma; ?>" class="btn-cta w-full block text-center">
+          <?php echo $translationsArr['solicitar_agora'] ?? 'Solicitar Agora'; ?>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Calculadora de Disponibilidade -->
+<section class="py-16 bg-gray-50">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-3xl font-bold mb-8">
+      <?php echo $translationsArr['calculadora_titulo'] ?? 'Verifique a Disponibilidade'; ?>
+    </h2>
+    <p class="text-gray-600 mb-8">
+      <?php echo $translationsArr['calculadora_desc'] ?? 'Digite seu endereço e descubra quais planos estão disponíveis na sua região.'; ?>
+    </p>
+    <form class="bg-white p-8 rounded-xl shadow-lg">
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            <?php echo $translationsArr['cep'] ?? 'CEP ou Endereço'; ?>
+          </label>
+          <input type="text" placeholder="Ex: 123-4567 Tokyo" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            <?php echo $translationsArr['cidade'] ?? 'Cidade'; ?>
+          </label>
+          <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+            <option><?php echo $translationsArr['selecione_cidade'] ?? 'Selecione a cidade'; ?></option>
+            <option>Tokyo</option>
+            <option>Osaka</option>
+            <option>Yokohama</option>
+            <option>Nagoya</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn-cta">
+        <?php echo $translationsArr['verificar_disponibilidade'] ?? 'Verificar Disponibilidade'; ?>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- Comparativo de Provedores -->
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-center mb-12">
+      <?php echo $translationsArr['comparativo_titulo'] ?? 'Compare Provedores'; ?>
+    </h2>
+    <div class="overflow-x-auto">
+      <table class="w-full bg-white shadow-lg rounded-lg">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Recursos</th>
+            <th class="px-6 py-4 text-center text-sm font-semibold text-gray-900">Hikari + Você</th>
+            <th class="px-6 py-4 text-center text-sm font-semibold text-gray-900">NURO</th>
+            <th class="px-6 py-4 text-center text-sm font-semibold text-gray-900">FLET'S</th>
+            <th class="px-6 py-4 text-center text-sm font-semibold text-gray-900">SoftBank</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900 font-medium">Suporte em Português</td>
+            <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+            <td class="px-6 py-4 text-center"><i data-lucide="x" class="w-5 h-5 text-red-500 mx-auto"></i></td>
+            <td class="px-6 py-4 text-center"><i data-lucide="x" class="w-5 h-5 text-red-500 mx-auto"></i></td>
+            <td class="px-6 py-4 text-center"><i data-lucide="x" class="w-5 h-5 text-red-500 mx-auto"></i></td>
+          </tr>
+          <tr class="bg-gray-50">
+            <td class="px-6 py-4 text-sm text-gray-900 font-medium">Instalação Gratuita</td>
+            <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+            <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+            <td class="px-6 py-4 text-center"><i data-lucide="x" class="w-5 h-5 text-red-500 mx-auto"></i></td>
+            <td class="px-6 py-4 text-center"><i data-lucide="x" class="w-5 h-5 text-red-500 mx-auto"></i></td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900 font-medium">Roteador Incluso</td>
+            <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+            <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+            <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+            <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+          </tr>
+          <tr class="bg-gray-50">
+            <td class="px-6 py-4 text-sm text-gray-900 font-medium">Atendimento 24/7</td>
+            <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+            <td class="px-6 py-4 text-center"><i data-lucide="x" class="w-5 h-5 text-red-500 mx-auto"></i></td>
+            <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+            <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-900 font-medium">Preço Médio (300Mbps)</td>
+            <td class="px-6 py-4 text-center text-indigo-600 font-semibold">¥4,500</td>
+            <td class="px-6 py-4 text-center">¥5,200</td>
+            <td class="px-6 py-4 text-center">¥4,800</td>
+            <td class="px-6 py-4 text-center">¥5,500</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center mt-8">
+      <a href="contato.php?lang=<?php echo $idioma; ?>" class="btn-cta">
+        <?php echo $translationsArr['consultoria_gratuita'] ?? 'Agendar Consultoria Gratuita'; ?>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Guia Rápido -->
+<section id="como-funciona" class="py-16 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-center mb-12">
+      <?php echo $translationsArr['guia_titulo'] ?? 'Como Contratar Internet no Japão'; ?>
+    </h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="bg-white p-8 rounded-xl shadow-lg">
+        <div class="flex items-start mb-6">
+          <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+            <i data-lucide="search" class="w-6 h-6 text-indigo-600"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">
+              <?php echo $translationsArr['passo1_titulo'] ?? '1. Verifique a Disponibilidade'; ?>
+            </h3>
+            <p class="text-gray-600">
+              <?php echo $translationsArr['passo1_desc'] ?? 'Use nossa calculadora para confirmar se a fibra ótica está disponível no seu endereço.'; ?>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white p-8 rounded-xl shadow-lg">
+        <div class="flex items-start mb-6">
+          <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+            <i data-lucide="clipboard-list" class="w-6 h-6 text-indigo-600"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">
+              <?php echo $translationsArr['passo2_titulo'] ?? '2. Escolha o Plano Ideal'; ?>
+            </h3>
+            <p class="text-gray-600">
+              <?php echo $translationsArr['passo2_desc'] ?? 'Compare nossos planos e selecione aquele que melhor atende suas necessidades.'; ?>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white p-8 rounded-xl shadow-lg">
+        <div class="flex items-start mb-6">
+          <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+            <i data-lucide="phone" class="w-6 h-6 text-indigo-600"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">
+              <?php echo $translationsArr['passo3_titulo'] ?? '3. Entre em Contato'; ?>
+            </h3>
+            <p class="text-gray-600">
+              <?php echo $translationsArr['passo3_desc'] ?? 'Fale conosco via WhatsApp ou formulário para agendar a instalação.'; ?>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white p-8 rounded-xl shadow-lg">
+        <div class="flex items-start mb-6">
+          <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+            <i data-lucide="home" class="w-6 h-6 text-indigo-600"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">
+              <?php echo $translationsArr['passo4_titulo'] ?? '4. Instalação e Ativação'; ?>
+            </h3>
+            <p class="text-gray-600">
+              <?php echo $translationsArr['passo4_desc'] ?? 'Nossa equipe cuida de tudo para você ter internet funcionando rapidamente.'; ?>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Depoimentos -->
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-center mb-12">
+      <?php echo $translationsArr['depoimentos_titulo'] ?? 'O que Nossos Clientes Dizem'; ?>
+    </h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-gray-50 p-6 rounded-xl">
+        <div class="flex items-center mb-4">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" alt="Cliente" class="w-12 h-12 rounded-full mr-4">
+          <div>
+            <div class="font-semibold">Carlos Silva</div>
+            <div class="text-sm text-gray-600">São Paulo, Brasil</div>
+          </div>
+        </div>
+        <div class="flex mb-4">
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+        </div>
+        <p class="text-gray-700 italic">
+          "<?php echo $translationsArr['depoimento1'] ?? 'Excelente serviço! O suporte em português fez toda diferença. Internet rápida e confiável para trabalhar remoto.'; ?>"
+        </p>
+      </div>
+      <div class="bg-gray-50 p-6 rounded-xl">
+        <div class="flex items-center mb-4">
+          <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=60&h=60&fit=crop&crop=face" alt="Cliente" class="w-12 h-12 rounded-full mr-4">
+          <div>
+            <div class="font-semibold">Maria Garcia</div>
+            <div class="text-sm text-gray-600">Buenos Aires, Argentina</div>
+          </div>
+        </div>
+        <div class="flex mb-4">
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+        </div>
+        <p class="text-gray-700 italic">
+          "<?php echo $translationsArr['depoimento2'] ?? 'Instalação rápida e atendimento em espanhol. Perfeito para famílias latinas no Japão.'; ?>"
+        </p>
+      </div>
+      <div class="bg-gray-50 p-6 rounded-xl">
+        <div class="flex items-center mb-4">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" alt="Cliente" class="w-12 h-12 rounded-full mr-4">
+          <div>
+            <div class="font-semibold">João Pereira</div>
+            <div class="text-sm text-gray-600">Rio de Janeiro, Brasil</div>
+          </div>
+        </div>
+        <div class="flex mb-4">
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+          <i data-lucide="star" class="w-5 h-5 text-yellow-400"></i>
+        </div>
+        <p class="text-gray-700 italic">
+          "<?php echo $translationsArr['depoimento3'] ?? 'Melhor decisão! Suporte 24/7 e preços competitivos. Recomendo para todos os brasileiros.'; ?>"
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<?php
+// Incluir footer
+include '../src/Views/footer.php';
+?>

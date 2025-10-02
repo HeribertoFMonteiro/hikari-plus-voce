@@ -1,0 +1,90 @@
+RewriteEngine On
+
+# Força HTTPS (descomente em produção)
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Remove trailing slash
+RewriteRule ^(.*)/$ /$1 [R=301,L]
+
+# Headers de segurança
+<IfModule mod_headers.c>
+    # Previne clickjacking
+    Header always set X-Frame-Options DENY
+
+    # Previne MIME type sniffing
+    Header always set X-Content-Type-Options nosniff
+
+    # Habilita XSS protection
+    Header always set X-XSS-Protection "1; mode=block"
+
+    # Referrer Policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Content Security Policy básico (ajuste conforme necessário)
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://unpkg.com; img-src 'self' data: https:; connect-src 'self'"
+
+    # HSTS (descomente em produção após testar HTTPS)
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+
+# Compressão GZIP
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Cache de assets estáticos
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+</IfModule>
+
+# URLs amigáveis com tradução - redirecionar para index.php
+RewriteRule ^(pt|es)/(.*)$ index.php?lang=$1&page=$2 [QSA,L]
+
+# Redirecionamentos para URLs amigáveis (português)
+RewriteRule ^pt/planos/?$ index.php?lang=pt&page=planos [QSA,L]
+RewriteRule ^pt/cobertura/?$ index.php?lang=pt&page=cobertura [QSA,L]
+RewriteRule ^pt/contato/?$ index.php?lang=pt&page=contato [QSA,L]
+RewriteRule ^pt/sobre/?$ index.php?lang=pt&page=about [QSA,L]
+RewriteRule ^pt/blog/?$ index.php?lang=pt&page=blog [QSA,L]
+RewriteRule ^pt/como-funciona/?$ index.php?lang=pt&page=como-funciona [QSA,L]
+RewriteRule ^pt/faq/?$ index.php?lang=pt&page=faq [QSA,L]
+
+# Redirecionamentos para URLs amigáveis (espanhol)
+RewriteRule ^es/planes/?$ index.php?lang=es&page=planos [QSA,L]
+RewriteRule ^es/cobertura/?$ index.php?lang=es&page=cobertura [QSA,L]
+RewriteRule ^es/contacto/?$ index.php?lang=es&page=contato [QSA,L]
+RewriteRule ^es/sobre/?$ index.php?lang=es&page=about [QSA,L]
+RewriteRule ^es/blog/?$ index.php?lang=es&page=blog [QSA,L]
+RewriteRule ^es/como-funciona/?$ index.php?lang=es&page=como-funciona [QSA,L]
+RewriteRule ^es/faq/?$ index.php?lang=es&page=faq [QSA,L]
+
+# Arquivos PHP antigos - redirecionar para index.php
+RewriteRule ^planos\.php$ index.php?page=planos [QSA,L]
+RewriteRule ^about\.php$ index.php?page=about [QSA,L]
+RewriteRule ^contato\.php$ index.php?page=contato [QSA,L]
+RewriteRule ^cobertura\.php$ index.php?page=cobertura [QSA,L]
+RewriteRule ^blog\.php$ index.php?page=blog [QSA,L]
+RewriteRule ^post\.php$ index.php?page=post [QSA,L]
+RewriteRule ^como-funciona\.php$ index.php?page=como-funciona [QSA,L]
+RewriteRule ^faq\.php$ index.php?page=faq [QSA,L]
+
+# Default to index.php for everything else
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
