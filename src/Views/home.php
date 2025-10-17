@@ -382,7 +382,7 @@ document.head.appendChild(style);
     <div class="grid md:grid-cols-3 gap-8">
       <div class="bg-gray-50 p-6 rounded-xl">
         <div class="flex items-center mb-4">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" alt="Cliente" class="w-12 h-12 rounded-full mr-4">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" alt="Foto de Carlos Silva, cliente satisfeito da Hikari + Você" class="w-12 h-12 rounded-full mr-4">
           <div>
             <div class="font-semibold">Carlos Silva</div>
             <div class="text-sm text-gray-600">São Paulo, Brasil</div>
@@ -401,7 +401,7 @@ document.head.appendChild(style);
       </div>
       <div class="bg-gray-50 p-6 rounded-xl">
         <div class="flex items-center mb-4">
-          <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=60&h=60&fit=crop&crop=face" alt="Cliente" class="w-12 h-12 rounded-full mr-4">
+          <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=60&h=60&fit=crop&crop=face" alt="Foto de Maria Garcia, cliente satisfeita da Hikari + Você" class="w-12 h-12 rounded-full mr-4">
           <div>
             <div class="font-semibold">Maria Garcia</div>
             <div class="text-sm text-gray-600">Buenos Aires, Argentina</div>
@@ -420,7 +420,7 @@ document.head.appendChild(style);
       </div>
       <div class="bg-gray-50 p-6 rounded-xl">
         <div class="flex items-center mb-4">
-          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" alt="Cliente" class="w-12 h-12 rounded-full mr-4">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" alt="Foto de João Pereira, cliente satisfeito da Hikari + Você" class="w-12 h-12 rounded-full mr-4">
           <div>
             <div class="font-semibold">João Pereira</div>
             <div class="text-sm text-gray-600">Rio de Janeiro, Brasil</div>

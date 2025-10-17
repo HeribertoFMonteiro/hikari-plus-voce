@@ -1,0 +1,14 @@
+{
+    "name": "hikari-voce/project",
+    "description": "Site institucional Hikari + Você",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Hikari Team",
+            "email": "contato@hikari-voce.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^12.4"
+    }
+}

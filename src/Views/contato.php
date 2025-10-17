@@ -25,13 +25,13 @@
             <label class="block mb-2 font-semibold">
               <?php echo $translations['nome'] ?? 'Nome'; ?> *
             </label>
-            <input type="text" name="nome" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+            <input type="text" name="nome" required aria-required="true" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
           </div>
           <div class="mb-4">
             <label class="block mb-2 font-semibold">
               <?php echo $translations['email'] ?? 'Email'; ?> *
             </label>
-            <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+            <input type="email" name="email" required aria-required="true" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
           </div>
           <div class="mb-4">
             <label class="block mb-2 font-semibold">

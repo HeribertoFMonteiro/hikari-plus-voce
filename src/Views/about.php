@@ -63,17 +63,17 @@
     </p>
     <div class="grid md:grid-cols-3 gap-8">
       <div class="text-center">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Equipe" class="w-32 h-32 rounded-full mx-auto mb-4">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Foto de João Silva, Diretor Executivo da Hikari + Você" class="w-32 h-32 rounded-full mx-auto mb-4">
         <h3 class="text-xl font-semibold mb-2">João Silva</h3>
         <p class="text-gray-600">Diretor Executivo</p>
       </div>
       <div class="text-center">
-        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face" alt="Equipe" class="w-32 h-32 rounded-full mx-auto mb-4">
+        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face" alt="Foto de Maria Garcia, Gerente de Suporte da Hikari + Você" class="w-32 h-32 rounded-full mx-auto mb-4">
         <h3 class="text-xl font-semibold mb-2">Maria Garcia</h3>
         <p class="text-gray-600">Gerente de Suporte</p>
       </div>
       <div class="text-center">
-        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Equipe" class="w-32 h-32 rounded-full mx-auto mb-4">
+        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Foto de Carlos Pereira, Especialista Técnico da Hikari + Você" class="w-32 h-32 rounded-full mx-auto mb-4">
         <h3 class="text-xl font-semibold mb-2">Carlos Pereira</h3>
         <p class="text-gray-600">Especialista Técnico</p>
       </div>

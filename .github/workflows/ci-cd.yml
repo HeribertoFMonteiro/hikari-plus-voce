@@ -1,0 +1,48 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        extensions: pdo_mysql, mbstring, zlib
+
+    - name: Install Composer dependencies
+      run: composer install --no-dev --optimize-autoloader
+
+    - name: Run PHPUnit tests
+      run: ./vendor/bin/phpunit --configuration phpunit_config.xml
+
+    - name: Run Lighthouse CI
+      uses: treosh/lighthouse-ci-action@v11
+      with:
+        urls: |
+          http://localhost:8000/
+        configPath: .lighthouserc.json
+
+    - name: Build assets (if needed)
+      run: echo "Assets already optimized in project"
+
+    - name: Deploy to staging (example)
+      if: github.ref == 'refs/heads/develop'
+      run: |
+        echo "Deploy to staging server"
+        # Add your deployment script here, e.g., rsync or SSH
+
+    - name: Deploy to production (example)
+      if: github.ref == 'refs/heads/main'
+      run: |
+        echo "Deploy to production server"
+        # Add your deployment script here, e.g., ./deploy.sh
